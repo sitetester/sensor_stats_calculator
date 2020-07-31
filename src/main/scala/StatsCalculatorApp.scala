@@ -5,8 +5,9 @@ import csv.StatsCalculator
 
 object StatsCalculatorApp extends App {
 
-  // TODO: Program takes one argument: a path to directory
-  val path = Paths.get("/Users/xxx/IdeaProjects/temp/sensor_statistics_task/src/main/resources")
+  print("Enter a full path to a directory : ")
+  val input = scala.io.StdIn.readLine()
+  val path = Paths.get(input)
 
   val file = new File(path.toString)
 
@@ -20,10 +21,10 @@ object StatsCalculatorApp extends App {
     println("sensor-id,min,avg,max: ")
 
     stats.sensorHumidityMap.toSeq.sortWith((x, y) => x._2._2 > y._2._2)
-      .foreach(x => printf("%s,%d,%d,%d\n", x._1, x._2._1,x._2._2,x._2._3))
+      .foreach(x => printf("%s,%d,%d,%d\n", x._1, x._2._1, x._2._2, x._2._3))
 
     stats.nanSensorHumidityMap.foreach(x => {
-      printf("%s,%s,%s,%s\n", x._1, x._2._1,x._2._2,x._2._3)
+      printf("%s,%s,%s,%s\n", x._1, x._2._1, x._2._2, x._2._3)
     })
 
   } else {
