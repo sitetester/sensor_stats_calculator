@@ -6,18 +6,19 @@ import csv.StatsCalculator
 object StatsCalculatorApp extends App {
 
   print("Enter a full path to a directory : ")
+
   val input = scala.io.StdIn.readLine()
   val path = Paths.get(input)
 
   val file = new File(path.toString)
-
   if (file.exists && file.isDirectory) {
     val stats = StatsCalculator.calculateStats(file)
 
-    println()
     println("Num of processed files: " + stats.filesProcessed)
     println("Num of processed measurements: " + stats.measurementsProcessed)
     println("Num of failed measurements: " + stats.filesProcessed)
+
+    print("\nSensors with highest avg humidity: \n\n")
     println("sensor-id,min,avg,max: ")
 
     stats.sensorHumidityMap.toSeq.sortWith((x, y) => x._2._2 > y._2._2)

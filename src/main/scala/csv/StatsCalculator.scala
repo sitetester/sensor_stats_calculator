@@ -11,12 +11,17 @@ object StatsCalculator {
 
   def calculateStats(file: File): Stats = {
 
-    val stats = new Stats()
-
     val csvFiles = file.listFiles.filter(file => {
       file.toString.split("\\.").last.equals("csv")
     })
 
+    if (csvFiles.isEmpty) {
+      throw new Exception("No CSV files found!")
+    }
+
+    println("Processing files...")
+
+    val stats = new Stats()
     stats.filesProcessed(csvFiles.length)
 
     csvFiles.foreach(file => {
@@ -29,14 +34,14 @@ object StatsCalculator {
   def parseFile(file: File, stats: Stats): Unit = {
 
     val source = Source.fromFile(file.getAbsolutePath)
-    checkHeader(source.getLines().take(1).toList.mkString(","))
 
     var counter = 0
-    source.getLines().foreach(line => {
+    source.getLines().drop(1).foreach(line => {
+      counter += 1
+
       val data = line.split(",")
 
       if (data.last != "NaN") {
-        counter += 1
         calculateSenorStats(data, stats: Stats)
         stats.incrementFailedCount()
       } else if (!stats.nanSensorHumidityMap.contains(data.head) && !stats.sensorHumidityMap.contains(data.head)) {
@@ -46,14 +51,6 @@ object StatsCalculator {
 
     stats.incrementProcessedCountBy(counter)
     source.close()
-  }
-
-  private def checkHeader(header: String): Unit = {
-
-    val columns = header.split(",")
-    if (columns.head != "sensor-id" && columns.last != "humidity") {
-      throw new Exception("Invalid CSV file provided!")
-    }
   }
 
   private def calculateSenorStats(data: Array[String], stats: Stats) {
