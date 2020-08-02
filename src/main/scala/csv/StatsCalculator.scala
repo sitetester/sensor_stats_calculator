@@ -41,9 +41,13 @@ object StatsCalculator {
 
       val data = line.split(",")
 
+      if (data.last == "NaN") {
+        stats.incrementFailedCount()
+      }
+
       if (data.last != "NaN") {
         calculateSenorStats(data, stats: Stats)
-        stats.incrementFailedCount()
+
       } else if (!stats.nanSensorHumidityMap.contains(data.head) && !stats.sensorHumidityMap.contains(data.head)) {
         stats.nanSensorHumidityMap(data.head) = ("NaN", "NaN", "NaN")
       }
