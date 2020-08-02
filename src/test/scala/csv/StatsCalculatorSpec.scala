@@ -7,7 +7,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 
 class StatsCalculatorSpec extends AnyFlatSpec {
 
-  it should "find pass given assertions" in {
+  it should "pass given assertions" in {
 
     val resourceDirectory = Paths.get("src", "test", "resources")
     val absolutePath = resourceDirectory.toFile.getAbsolutePath
