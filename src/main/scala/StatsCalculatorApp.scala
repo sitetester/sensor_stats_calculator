@@ -16,7 +16,7 @@ object StatsCalculatorApp extends App {
 
     println("Num of processed files: " + stats.filesProcessed)
     println("Num of processed measurements: " + stats.measurementsProcessed)
-    println("Num of failed measurements: " + stats.filesProcessed)
+    println("Num of failed measurements: " + stats.measurementsFailed)
 
     print("\nSensors with highest avg humidity: \n\n")
     println("sensor-id,min,avg,max: ")
