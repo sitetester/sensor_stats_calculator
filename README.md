@@ -1,6 +1,5 @@
-# Sensor Statistics Task
 
-Create a command line program that calculates statistics from humidity sensor data.
+This creates a command line program that calculates statistics from humidity sensor data.
 
 ### Background story
 
@@ -62,13 +61,3 @@ s2,78,82,88
 s1,10,54,98
 s3,NaN,NaN,NaN
 ```
-
-## Notes
-
-- Single daily report file can be very large, and can exceed program memory
-- Program should only use memory for its internal state (no disk, no database)
-- Any open source library can be used (besides Spark) 
-- Please use vanilla scala, akka-stream, monix or similar technology. 
-- You're more than welcome to implement a purely functional solution using cats-effect, fs2 and/or ZIO to impress, 
-  but this is not a mandatory requirement. 
-- Sensible tests are welcome
